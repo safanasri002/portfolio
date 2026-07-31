@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safa Nasri — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============================================
+     TOKENS — blue girlie palette, edit here
+     ============================================ */
+  :root{
+    --bg:#FFF9F1;              /* general background, warm ivory */
+    --ink:#2A2440;             /* main text, deep indigo-plum from the painting's darks */
+    --ink-soft:#786C8C;        /* secondary text */
+    --white:#FFFFFF;
+
+    --sky:#F6DFA0;             /* golden yellow band, sampled from the painting */
+    --sky-deep:#DD8B3E;        /* burnt orange band */
+    --periwinkle:#D3D0EE;      /* soft periwinkle-lavender, right edge of painting */
+    --periwinkle-deep:#7C79C0; /* deep cobalt-periwinkle blue */
+    --powder:#F5C7B0;          /* coral/salmon band */
+    --powder-deep:#E28A6C;     /* deeper coral-orange */
+    --ice:#BFEAD9;             /* teal highlight streaks in the painting */
+    --cornflower:#D97A3D;      /* accent CTA — vivid burnt orange */
+    --navy-deep:#201D3B;       /* dark card — deep indigo navy, sampled from the painting's top-left */
+
+    --radius:24px;
+    --font-display:'Baloo 2', sans-serif;
+    --font-body:'Poppins', sans-serif;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:var(--font-body);
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+  }
+  a{text-decoration:none;color:inherit;}
+  ul{list-style:none;}
+  img{max-width:100%;display:block;}
+  svg{display:block;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 3vw;
+    background:rgba(245,250,253,0.85);
+    backdrop-filter:blur(10px);
+  }
+  .logo{
+    display:flex;align-items:center;gap:9px;
+    font-family:var(--font-display);
+    font-weight:700;font-size:1.1rem;
+  }
+  .logo-dot{
+    width:12px;height:12px;border-radius:50%;
+    background:var(--cornflower);
+  }
+  nav ul{display:flex;gap:34px;font-weight:500;font-size:0.92rem;}
+  nav a{position:relative;padding-bottom:3px;}
+  nav a::after{
+    content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
+    background:var(--cornflower);transition:width .25s;
+  }
+  nav a:hover::after{width:100%;}
+
+  /* ---------- HERO (one large rounded card, gradient bg, photo filling the right column — matches reference) ---------- */
+  .hero-wrap{
+    padding:0 0 80px;
+  }
+  .hero{
+    display:grid;grid-template-columns:1.05fr 0.95fr;
+    gap:56px;
+    align-items:stretch;
+    min-height:700px;
+    border-radius:0;
+    padding:52px 6vw;
+    background:linear-gradient(120deg, #FAF3E6 0%, #F3CE86 32%, #EDA37E 58%, #C9AEE0 80%, #7C79C0 100%);
+  }
+  .hero-text{
+    display:flex;flex-direction:column;justify-content:space-between;
+  }
+  .hero-text-top{display:flex;flex-direction:column;}
+  .eyebrow{
+    font-size:0.82rem;font-weight:600;letter-spacing:0.09em;
+    text-transform:uppercase;color:var(--cornflower);margin-bottom:14px;
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:clamp(2rem,4vw,2.9rem);
+    line-height:1.25;
+    margin-bottom:20px;
+  }
+  h1 .accent{color:var(--cornflower);}
+  .hero p{
+    max-width:440px;
+    color:var(--ink-soft);
+    font-size:1.02rem;
+  }
+  .btn-row{display:flex;flex-direction:row;align-items:center;gap:20px;flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--navy-deep);color:var(--sky);
+    padding:14px 30px;border-radius:999px;
+    font-weight:600;font-size:0.94rem;
+    transition:transform .2s, opacity .2s;
+    display:inline-block;
+  }
+  .btn-primary:hover{opacity:0.85;transform:translateY(-2px);}
+  .socials{display:flex;gap:12px;}
+  .socials a{
+    width:42px;height:42px;border-radius:50%;
+    background:var(--white);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 4px 14px rgba(30,42,68,0.1);
+    color:var(--navy-deep);
+    transition:transform .2s;
+  }
+  .socials a svg{width:18px;height:18px;}
+  .socials a:hover{transform:translateY(-3px);}
+
+  .hero-photo{
+    border-radius:16px;
+    overflow:hidden;
+    width:100%;height:100%;
+    min-height:420px;
+    background:linear-gradient(155deg, var(--sky-deep), var(--periwinkle-deep));
+    display:flex;align-items:center;justify-content:center;
+    color:var(--navy-deep);
+    font-family:var(--font-display);
+    font-size:1.05rem;
+    text-align:center;
+    padding:0;
+  }
+  .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+  /* Replace the placeholder text/div content with: <img src="photo.jpg" alt="Safa Nasri"> for your real photo — it will fill the frame edge to edge */
+
+  /* ---------- INTERESTS + STACK (2 cards side by side, now dynamic) ---------- */
+  .about{
+    display:grid;grid-template-columns:1fr 1fr;gap:26px;
+    padding:20px 3vw 90px;
+  }
+  .card{
+    border-radius:var(--radius);
+    padding:38px;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 16px 34px rgba(30,20,60,0.14);
+  }
+  .card h2{
+    font-family:var(--font-display);
+    font-size:1.3rem;font-weight:600;
+    margin-bottom:26px;
+  }
+
+  .card.interests{
+    background:linear-gradient(135deg, var(--powder-deep), var(--periwinkle-deep), var(--sky-deep));
+    background-size:220% 220%;
+    animation:gradientShift 10s ease infinite;
+    color:var(--white);
+  }
+  @keyframes gradientShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
+  @keyframes floatIcon{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-7px);}
+  }
+  @keyframes fadeInUp{
+    from{opacity:0;transform:translateY(16px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .interests-grid{
+    display:grid;grid-template-columns:1fr 1fr;gap:22px;
+  }
+  .interest-item{
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    text-align:center;
+    animation:fadeInUp .6s ease both;
+  }
+  .interest-item:nth-child(1){animation-delay:.05s;}
+  .interest-item:nth-child(2){animation-delay:.15s;}
+  .interest-item:nth-child(3){animation-delay:.25s;}
+  .interest-item:nth-child(4){animation-delay:.35s;}
+  .interest-icon{
+    width:56px;height:56px;border-radius:16px;
+    display:flex;align-items:center;justify-content:center;
+    color:var(--white);
+    animation:floatIcon 3.2s ease-in-out infinite;
+    transition:transform .3s ease, box-shadow .3s ease;
+  }
+  .interest-item:nth-child(1) .interest-icon{animation-delay:0s;}
+  .interest-item:nth-child(2) .interest-icon{animation-delay:.5s;}
+  .interest-item:nth-child(3) .interest-icon{animation-delay:1s;}
+  .interest-item:nth-child(4) .interest-icon{animation-delay:1.5s;}
+  .interest-item:hover .interest-icon{
+    transform:scale(1.14) rotate(-6deg);
+    box-shadow:0 12px 22px rgba(0,0,0,0.28);
+    animation-play-state:paused;
+  }
+  .interest-icon svg{width:26px;height:26px;}
+  .interest-icon.i1{background:linear-gradient(135deg, var(--cornflower), var(--periwinkle-deep));}
+  .interest-icon.i2{background:linear-gradient(135deg, var(--powder-deep), var(--sky-deep));}
+  .interest-icon.i3{background:linear-gradient(135deg, var(--periwinkle-deep), var(--cornflower));}
+  .interest-icon.i4{background:linear-gradient(135deg, var(--sky-deep), var(--powder-deep));}
+  .interest-item span{font-size:0.86rem;font-weight:500;color:var(--white);opacity:0.95;transition:opacity .3s;}
+  .interest-item:hover span{opacity:1;}
+
+  .card.stack{background:var(--periwinkle);}
+  .tags{display:flex;flex-wrap:wrap;gap:10px;}
+  .tag{
+    padding:8px 16px;border-radius:999px;
+    font-size:0.85rem;font-weight:500;
+    background:var(--white);color:var(--navy-deep);
+    transition:transform .25s ease, background .25s ease, color .25s ease, box-shadow .25s ease;
+    cursor:default;
+    animation:fadeInUp .5s ease both;
+  }
+  .tag:nth-child(1){animation-delay:.05s;}
+  .tag:nth-child(2){animation-delay:.1s;}
+  .tag:nth-child(3){animation-delay:.15s;}
+  .tag:nth-child(4){animation-delay:.2s;}
+  .tag:nth-child(5){animation-delay:.25s;}
+  .tag:nth-child(6){animation-delay:.3s;}
+  .tag:nth-child(7){animation-delay:.35s;}
+  .tag:nth-child(8){animation-delay:.4s;}
+  .tag:nth-child(9){animation-delay:.45s;}
+  .tag:nth-child(10){animation-delay:.5s;}
+  .tag:hover{
+    transform:translateY(-4px) scale(1.06);
+    background:var(--cornflower);color:var(--white);
+    box-shadow:0 10px 20px rgba(217,122,61,0.35);
+  }
+
+  /* ---------- PROJECTS HEADER ---------- */
+  .projects-header{
+    text-align:center;
+    padding:44px 3vw;
+    margin:0 3vw 40px;
+    border-radius:var(--radius);
+    background:linear-gradient(120deg, var(--sky), var(--periwinkle));
+  }
+  .projects-header h2{
+    font-family:var(--font-display);font-weight:700;
+    font-size:clamp(1.6rem,2.8vw,2.1rem);
+    margin-bottom:8px;
+  }
+  .projects-header p{font-size:0.92rem;color:var(--ink-soft);font-weight:500;}
+
+  /* ---------- PROJECTS GRID ---------- */
+  .projects-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:26px;
+    padding:0 3vw 90px;
+  }
+  .project-card{
+    border-radius:var(--radius);
+    padding:26px;
+    display:flex;flex-direction:column;gap:16px;
+    transition:transform .25s;
+  }
+  .project-card:hover{transform:translateY(-6px);}
+  .project-top{
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .project-top h3{
+    font-family:var(--font-display);
+    font-size:1.15rem;font-weight:600;
+  }
+  .project-links{display:flex;gap:14px;font-weight:600;font-size:0.82rem;}
+  .project-links a{border-bottom:2px solid currentColor;padding-bottom:1px;}
+
+  /* mockup preview area inside each card */
+  .mockup{
+    border-radius:14px;
+    overflow:hidden;
+    background:rgba(255,255,255,0.55);
+    min-height:130px;
+    display:flex;flex-direction:column;
+  }
+  .mockup-bar{
+    display:flex;gap:6px;padding:10px 12px;
+    background:rgba(255,255,255,0.5);
+  }
+  .mockup-bar span{width:8px;height:8px;border-radius:50%;background:rgba(30,42,68,0.25);}
+  .mockup-body{
+    flex:1;display:flex;align-items:center;justify-content:center;
+    color:var(--navy-deep);
+  }
+  .mockup-body svg{width:38px;height:38px;}
+  .project-card p.desc{font-size:0.86rem;color:var(--ink);opacity:0.75;}
+
+  .p1{background:linear-gradient(135deg, var(--sky), var(--powder));}
+  .p2{background:linear-gradient(150deg, var(--sky-deep), var(--periwinkle-deep));}
+  .p3{background:linear-gradient(135deg, var(--powder), var(--periwinkle));}
+  .p4{background:linear-gradient(135deg, var(--periwinkle), var(--ice));}
+  .p5{background:linear-gradient(135deg, var(--sky), var(--sky-deep));}
+  .p6{background:linear-gradient(135deg, var(--ice), var(--periwinkle-deep));}
+
+  /* ---------- CONTACT / FOOTER ---------- */
+  footer{
+    background:var(--navy-deep);color:var(--sky);
+    padding:70px 3vw 46px;
+    text-align:center;
+    border-radius:40px 40px 0 0;
+  }
+  footer h2{
+    font-family:var(--font-display);font-weight:700;
+    font-size:clamp(1.7rem,3.2vw,2.3rem);
+    margin-bottom:16px;
+  }
+  footer p{opacity:0.75;max-width:440px;margin:0 auto 28px;}
+  footer .socials{justify-content:center;margin:0 auto 36px;display:flex;gap:12px;}
+  footer .socials a{background:rgba(255,255,255,0.1);color:var(--sky);box-shadow:none;}
+  .footnote{font-size:0.78rem;opacity:0.55;}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:900px){
+    .hero-wrap{padding:0 0 60px;}
+    .hero{grid-template-columns:1fr;padding:28px 6vw;gap:28px;min-height:0;}
+    .hero-text{justify-content:flex-start;gap:28px;}
+    .hero-photo{min-height:280px;}
+    .about{grid-template-columns:1fr;padding:20px 3vw 70px;}
+    .projects-grid{grid-template-columns:1fr;padding:0 3vw 70px;}
+    .projects-header{margin:0 3vw 32px;}
+    nav ul{gap:18px;font-size:0.8rem;}
+  }
+
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--cornflower);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================
+     NAVIGATION — change the name
+     ============================================ -->
+<header>
+  <div class="logo"><span class="logo-dot"></span> Safa Nasri</div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============================================
+     HERO — name, tagline, description, socials, photo
+     ============================================ -->
+<section class="hero-wrap" id="home">
+ <div class="hero">
+  <div class="hero-text">
+   <div class="hero-text-top">
+    <p class="eyebrow">Software Engineering Student</p>
+    <h1>Hi, I'm <span class="accent">Safa Nasri</span><br>and I'm a software engineering student.</h1>
+    <p>
+      Passionate about Machine Learning, new technologies, and building all kinds
+      of software projects, always looking for new and innovative ways to push
+      the boundaries of what's possible.
+    </p>
+   </div>
+    <div class="btn-row">
+      <a class="btn-primary" href="#contact">Get in touch</a>
+      <div class="socials">
+        <a href="mailto:safanasri002@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/safa-nasri-55766a284/" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.1h.05c.53-1 1.83-2.1 3.77-2.1 4.03 0 4.78 2.65 4.78 6.1V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z"/></svg>
+        </a>
+        <a href="https://github.com/safanasri002" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 00-1.3-3.2 4.2 4.2 0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 00-6.2 0C6.5 3.5 5.4 3.8 5.4 3.8a4.2 4.2 0 00-.1 3.2A4.6 4.6 0 004 10.2c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="nasri safa profile picture.jpg" alt="Safa Nasri">
+    <!-- Your photo here -->
+  </div>
+ </div>
+</section>
+
+<!-- ============================================
+     INTERESTS + STACK
+     ============================================ -->
+<section class="about">
+  <div class="card interests">
+    <h2>My interests:</h2>
+    <div class="interests-grid">
+      <div class="interest-item">
+        <div class="interest-icon i1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>
+        </div>
+        <span>Artificial Intelligence</span>
+      </div>
+      <div class="interest-item">
+        <div class="interest-icon i2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6L2 12l6 6M16 6l6 6-6 6"/></svg>
+        </div>
+        <span>Software Development</span>
+      </div>
+      <div class="interest-item">
+        <div class="interest-icon i3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11M10 20V4M16 20v-7M22 20H2"/></svg>
+        </div>
+        <span>Data Science</span>
+      </div>
+      <div class="interest-item">
+        <div class="interest-icon i4">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 000-9 6 6 0 00-11.4 1.5A4 4 0 007 19h10.5z"/></svg>
+        </div>
+        <span>Cloud</span>
+      </div>
+    </div>
+  </div>
+  <div class="card stack">
+    <h2>My stack:</h2>
+    <div class="tags">
+      <span class="tag">Python</span>
+      <span class="tag">FastAPI</span>
+      <span class="tag">Angular</span>
+      <span class="tag">TypeScript</span>
+      <span class="tag">Docker</span>
+      <span class="tag">Kubernetes</span>
+      <span class="tag">MongoDB</span>
+      <span class="tag">PostgreSQL</span>
+      <span class="tag">Java</span>
+      <span class="tag">Git</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     PROJECTS — change titles, descriptions, links
+     ============================================ -->
+<section id="projects">
+  <div class="projects-header">
+    <h2>My projects</h2>
+    <p>Click to view on GitHub</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <div class="project-card p1">
+      <div class="project-top">
+        <h3>Intelligent Banking Platform</h3>
+      </div>
+      <div class="mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10M20 21V10M2 10l10-6 10 6M6 21v-6M10 21v-6M14 21v-6M18 21v-6"/></svg>
+        </div>
+      </div>
+      <p class="desc">Fraud detection using Random Forest (~97% accuracy). Spring Boot, Angular, Flask, PostgreSQL.</p>
+      <div class="project-links">
+        <a href="#">Repo</a>
+        <a href="#">Live demo</a>
+      </div>
+    </div>
+
+    <div class="project-card p2">
+      <div class="project-top">
+        <h3>Artora</h3>
+      </div>
+      <div class="mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 100 20c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.3A4.2 4.2 0 0021 11c0-5-4-9-9-9z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="11.5" cy="7.5" r="1"/><circle cx="16" cy="10" r="1"/></svg>
+        </div>
+      </div>
+      <p class="desc">Art auction platform with JWT auth, WebSockets, and a wallet system. Angular, FastAPI, MongoDB.</p>
+      <div class="project-links">
+        <a href="#">Repo</a>
+        <a href="#">Live demo</a>
+      </div>
+    </div>
+
+    <div class="project-card p3">
+      <div class="project-top">
+        <h3>Handwritten Document Extraction</h3>
+      </div>
+      <div class="mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M9 15l1.5-1.5L14 17l-1.5 1.5z"/></svg>
+        </div>
+      </div>
+      <p class="desc">OpenCV + TrOCR pipeline for handwritten text extraction, running fully locally.</p>
+      <div class="project-links">
+        <a href="#">Repo</a>
+        <a href="#">Live demo</a>
+      </div>
+    </div>
+
+    <div class="project-card p4">
+      <div class="project-top">
+        <h3>Research Paper Assistant</h3>
+      </div>
+      <div class="mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+      </div>
+      <p class="desc">LangChain chatbot for discovering papers, with trust signals like DOI and citation counts.</p>
+      <div class="project-links">
+        <a href="#">Repo</a>
+        <a href="#">Live demo</a>
+      </div>
+    </div>
+
+    <div class="project-card p5">
+      <div class="project-top">
+        <h3>New project</h3>
+      </div>
+      <div class="mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+        </div>
+      </div>
+      <p class="desc">Describe your project here in one or two sentences.</p>
+      <div class="project-links">
+        <a href="#">Repo</a>
+        <a href="#">Live demo</a>
+      </div>
+    </div>
+
+    <div class="project-card p6">
+      <div class="project-top">
+        <h3>New project</h3>
+      </div>
+      <div class="mockup">
+        <div class="mockup-bar"><span></span><span></span><span></span></div>
+        <div class="mockup-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l1.8 5.6L19.5 9l-4.7 3.4L16 18l-4-3.2L8 18l1.2-5.6L4.5 9l5.7-1.4z"/></svg>
+        </div>
+      </div>
+      <p class="desc">Describe your project here in one or two sentences.</p>
+      <div class="project-links">
+        <a href="#">Repo</a>
+        <a href="#">Live demo</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     CONTACT / FOOTER
+     ============================================ -->
+<footer id="contact">
+  <h2>Let's talk</h2>
+  <p>Always open to internship opportunities in AI and DevOps, as well as collaborative projects.</p>
+  <div class="socials">
+    <a href="mailto:safanasri002@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+    </a>
+    <a href="https://linkedin.com/in/your-profile" aria-label="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.1h.05c.53-1 1.83-2.1 3.77-2.1 4.03 0 4.78 2.65 4.78 6.1V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z"/></svg>
+    </a>
+    <a href="https://github.com/your-profile" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 00-1.3-3.2 4.2 4.2 0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 00-6.2 0C6.5 3.5 5.4 3.8 5.4 3.8a4.2 4.2 0 00-.1 3.2A4.6 4.6 0 004 10.2c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
+    </a>
+  </div>
+  <p class="footnote">© 2026 Safa Nasri. Built with coffee and a bit of code.</p>
+</footer>
+
+</body>
+</html>
