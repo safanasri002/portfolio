@@ -17,16 +17,32 @@
     --white:#FFFFFF;
 
     --sky:#F6DFA0;             /* golden yellow band, sampled from the painting */
-    --sky-deep:#DD8B3E;        /* burnt orange band */
+    --sky-deep:#E3A24C;        /* amber-gold band — kept visually distinct from --accent */
     --periwinkle:#D3D0EE;      /* soft periwinkle-lavender, right edge of painting */
     --periwinkle-deep:#7C79C0; /* deep cobalt-periwinkle blue */
     --powder:#F5C7B0;          /* coral/salmon band */
     --powder-deep:#E28A6C;     /* deeper coral-orange */
     --ice:#BFEAD9;             /* teal highlight streaks in the painting */
-    --cornflower:#D97A3D;      /* accent CTA — vivid burnt orange */
+    --accent:#D97A3D;          /* accent CTA — vivid burnt orange (decorative use: dots, underlines, icons) */
+    --accent-ink:#A8511F;      /* darkened accent — WCAG AA-safe for text/hover on light backgrounds */
     --navy-deep:#201D3B;       /* dark card — deep indigo navy, sampled from the painting's top-left */
 
+    /* radius scale: sm = inner/small elements, default = cards, lg = footer sweep */
+    --radius-sm:16px;
     --radius:24px;
+    --radius-lg:40px;
+
+    /* 8pt spacing scale — --space-N = N × 8px, used for section-level padding/gaps */
+    --space-3:24px;
+    --space-4:32px;
+    --space-5:40px;
+    --space-6:48px;
+    --space-7:56px;
+    --space-8:64px;
+    --space-9:72px;
+    --space-10:80px;
+    --space-11:88px;
+
     --font-display:'Baloo 2', sans-serif;
     --font-body:'Poppins', sans-serif;
   }
@@ -48,8 +64,8 @@
   header{
     position:sticky;top:0;z-index:50;
     display:flex;align-items:center;justify-content:space-between;
-    padding:22px 3vw;
-    background:rgba(245,250,253,0.85);
+    padding:var(--space-3) 3vw;
+    background:rgba(255,249,241,0.85);
     backdrop-filter:blur(10px);
   }
   .logo{
@@ -59,27 +75,27 @@
   }
   .logo-dot{
     width:12px;height:12px;border-radius:50%;
-    background:var(--cornflower);
+    background:var(--accent);
   }
   nav ul{display:flex;gap:34px;font-weight:500;font-size:0.92rem;}
   nav a{position:relative;padding-bottom:3px;}
   nav a::after{
     content:"";position:absolute;left:0;bottom:0;width:0;height:2px;
-    background:var(--cornflower);transition:width .25s;
+    background:var(--accent);transition:width .25s;
   }
   nav a:hover::after{width:100%;}
 
   /* ---------- HERO (one large rounded card, gradient bg, photo filling the right column — matches reference) ---------- */
   .hero-wrap{
-    padding:0 0 80px;
+    padding:0 0 var(--space-10);
   }
   .hero{
     display:grid;grid-template-columns:1.05fr 0.95fr;
-    gap:56px;
+    gap:var(--space-7);
     align-items:stretch;
     min-height:700px;
     border-radius:0;
-    padding:52px 6vw;
+    padding:var(--space-6) 6vw;
     background:linear-gradient(120deg, #FAF3E6 0%, #F3CE86 32%, #EDA37E 58%, #C9AEE0 80%, #7C79C0 100%);
   }
   .hero-text{
@@ -87,8 +103,10 @@
   }
   .hero-text-top{display:flex;flex-direction:column;}
   .eyebrow{
+    display:inline-block;
     font-size:0.82rem;font-weight:600;letter-spacing:0.09em;
-    text-transform:uppercase;color:var(--cornflower);margin-bottom:14px;
+    text-transform:uppercase;color:var(--accent-ink);margin-bottom:14px;
+    background:rgba(255,255,255,0.6);padding:6px 14px;border-radius:999px;
   }
   h1{
     font-family:var(--font-display);
@@ -97,7 +115,7 @@
     line-height:1.25;
     margin-bottom:20px;
   }
-  h1 .accent{color:var(--cornflower);}
+  h1 .accent{color:var(--accent);}
   .hero p{
     max-width:440px;
     color:var(--ink-soft);
@@ -112,6 +130,16 @@
     display:inline-block;
   }
   .btn-primary:hover{opacity:0.85;transform:translateY(-2px);}
+  .btn-secondary{
+    display:inline-flex;align-items:center;gap:9px;
+    background:transparent;color:var(--navy-deep);
+    border:2px solid var(--navy-deep);
+    padding:12px 28px;border-radius:999px;
+    font-weight:600;font-size:0.94rem;
+    transition:transform .2s, background .2s, color .2s;
+  }
+  .btn-secondary svg{width:16px;height:16px;}
+  .btn-secondary:hover{background:var(--navy-deep);color:var(--sky);transform:translateY(-2px);}
   .socials{display:flex;gap:12px;}
   .socials a{
     width:42px;height:42px;border-radius:50%;
@@ -125,7 +153,7 @@
   .socials a:hover{transform:translateY(-3px);}
 
   .hero-photo{
-    border-radius:16px;
+    border-radius:var(--radius-sm);
     overflow:hidden;
     width:100%;height:100%;
     min-height:420px;
@@ -142,12 +170,12 @@
 
   /* ---------- INTERESTS + STACK (2 cards side by side, now dynamic) ---------- */
   .about{
-    display:grid;grid-template-columns:1fr 1fr;gap:26px;
-    padding:20px 3vw 90px;
+    display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);
+    padding:var(--space-3) 3vw var(--space-11);
   }
   .card{
     border-radius:var(--radius);
-    padding:38px;
+    padding:var(--space-5);
     transition:transform .3s ease, box-shadow .3s ease;
   }
   .card:hover{
@@ -180,7 +208,7 @@
     to{opacity:1;transform:translateY(0);}
   }
   .interests-grid{
-    display:grid;grid-template-columns:1fr 1fr;gap:22px;
+    display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);
   }
   .interest-item{
     display:flex;flex-direction:column;align-items:center;gap:10px;
@@ -208,9 +236,9 @@
     animation-play-state:paused;
   }
   .interest-icon svg{width:26px;height:26px;}
-  .interest-icon.i1{background:linear-gradient(135deg, var(--cornflower), var(--periwinkle-deep));}
+  .interest-icon.i1{background:linear-gradient(135deg, var(--accent), var(--periwinkle-deep));}
   .interest-icon.i2{background:linear-gradient(135deg, var(--powder-deep), var(--sky-deep));}
-  .interest-icon.i3{background:linear-gradient(135deg, var(--periwinkle-deep), var(--cornflower));}
+  .interest-icon.i3{background:linear-gradient(135deg, var(--periwinkle-deep), var(--accent));}
   .interest-icon.i4{background:linear-gradient(135deg, var(--sky-deep), var(--powder-deep));}
   .interest-item span{font-size:0.86rem;font-weight:500;color:var(--white);opacity:0.95;transition:opacity .3s;}
   .interest-item:hover span{opacity:1;}
@@ -237,15 +265,15 @@
   .tag:nth-child(10){animation-delay:.5s;}
   .tag:hover{
     transform:translateY(-4px) scale(1.06);
-    background:var(--cornflower);color:var(--white);
-    box-shadow:0 10px 20px rgba(217,122,61,0.35);
+    background:var(--accent-ink);color:var(--white);
+    box-shadow:0 10px 20px rgba(168,81,31,0.35);
   }
 
   /* ---------- PROJECTS HEADER ---------- */
   .projects-header{
     text-align:center;
-    padding:44px 3vw;
-    margin:0 3vw 40px;
+    padding:var(--space-6) 3vw;
+    margin:0 3vw var(--space-5);
     border-radius:var(--radius);
     background:linear-gradient(120deg, var(--sky), var(--periwinkle));
   }
@@ -260,12 +288,12 @@
   .projects-grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
-    gap:26px;
-    padding:0 3vw 90px;
+    gap:var(--space-3);
+    padding:0 3vw var(--space-11);
   }
   .project-card{
     border-radius:var(--radius);
-    padding:26px;
+    padding:var(--space-3);
     display:flex;flex-direction:column;gap:16px;
     transition:transform .25s;
   }
@@ -304,15 +332,15 @@
   .p2{background:linear-gradient(150deg, var(--sky-deep), var(--periwinkle-deep));}
   .p3{background:linear-gradient(135deg, var(--powder), var(--periwinkle));}
   .p4{background:linear-gradient(135deg, var(--periwinkle), var(--ice));}
-  .p5{background:linear-gradient(135deg, var(--sky), var(--sky-deep));}
+  .p5{background:linear-gradient(135deg, var(--accent), var(--powder-deep));}
   .p6{background:linear-gradient(135deg, var(--ice), var(--periwinkle-deep));}
 
   /* ---------- CONTACT / FOOTER ---------- */
   footer{
     background:var(--navy-deep);color:var(--sky);
-    padding:70px 3vw 46px;
+    padding:var(--space-9) 3vw var(--space-6);
     text-align:center;
-    border-radius:40px 40px 0 0;
+    border-radius:var(--radius-lg) var(--radius-lg) 0 0;
   }
   footer h2{
     font-family:var(--font-display);font-weight:700;
@@ -322,22 +350,24 @@
   footer p{opacity:0.75;max-width:440px;margin:0 auto 28px;}
   footer .socials{justify-content:center;margin:0 auto 36px;display:flex;gap:12px;}
   footer .socials a{background:rgba(255,255,255,0.1);color:var(--sky);box-shadow:none;}
+  footer .btn-secondary{border-color:var(--sky);color:var(--sky);margin-bottom:30px;}
+  footer .btn-secondary:hover{background:var(--sky);color:var(--navy-deep);}
   .footnote{font-size:0.78rem;opacity:0.55;}
 
   /* ---------- RESPONSIVE ---------- */
   @media (max-width:900px){
-    .hero-wrap{padding:0 0 60px;}
-    .hero{grid-template-columns:1fr;padding:28px 6vw;gap:28px;min-height:0;}
-    .hero-text{justify-content:flex-start;gap:28px;}
+    .hero-wrap{padding:0 0 var(--space-8);}
+    .hero{grid-template-columns:1fr;padding:var(--space-4) 6vw;gap:var(--space-4);min-height:0;}
+    .hero-text{justify-content:flex-start;gap:var(--space-4);}
     .hero-photo{min-height:280px;}
-    .about{grid-template-columns:1fr;padding:20px 3vw 70px;}
-    .projects-grid{grid-template-columns:1fr;padding:0 3vw 70px;}
-    .projects-header{margin:0 3vw 32px;}
+    .about{grid-template-columns:1fr;padding:var(--space-3) 3vw var(--space-9);}
+    .projects-grid{grid-template-columns:1fr;padding:0 3vw var(--space-9);}
+    .projects-header{margin:0 3vw var(--space-4);}
     nav ul{gap:18px;font-size:0.8rem;}
   }
 
   a:focus-visible, button:focus-visible{
-    outline:3px solid var(--cornflower);
+    outline:3px solid var(--accent);
     outline-offset:3px;
   }
 </style>
@@ -375,8 +405,12 @@
    </div>
     <div class="btn-row">
       <a class="btn-primary" href="#contact">Get in touch</a>
+      <a class="btn-secondary" href="Safa Nasri - CV.pdf" download="Safa Nasri - CV.pdf">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 21h16"/></svg>
+        Download CV
+      </a>
       <div class="socials">
-        <a href="mailto:safanasri002@gmail.com" aria-label="Email">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=safanasri002@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
         </a>
         <a href="https://www.linkedin.com/in/safa-nasri-55766a284/" aria-label="LinkedIn">
@@ -567,14 +601,18 @@
 <footer id="contact">
   <h2>Let's talk</h2>
   <p>Always open to internship opportunities in AI and DevOps, as well as collaborative projects.</p>
+  <a class="btn-secondary" href="Safa Nasri - CV.pdf" download="Safa Nasri - CV.pdf">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4"/><path d="M4 21h16"/></svg>
+    Download CV
+  </a>
   <div class="socials">
-    <a href="mailto:safanasri002@gmail.com" aria-label="Email">
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=safanasri002@gmail.com" target="_blank" rel="noopener noreferrer" aria-label="Email">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
     </a>
-    <a href="https://linkedin.com/in/your-profile" aria-label="LinkedIn">
+    <a href="https://www.linkedin.com/in/safa-nasri-55766a284/" aria-label="LinkedIn">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4V23h-4V8zm7.5 0h3.8v2.1h.05c.53-1 1.83-2.1 3.77-2.1 4.03 0 4.78 2.65 4.78 6.1V23h-4v-6.9c0-1.65-.03-3.77-2.3-3.77-2.3 0-2.65 1.8-2.65 3.65V23h-4V8z"/></svg>
     </a>
-    <a href="https://github.com/your-profile" aria-label="GitHub">
+    <a href="https://github.com/safanasri002" aria-label="GitHub">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 00-1.3-3.2 4.2 4.2 0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 00-6.2 0C6.5 3.5 5.4 3.8 5.4 3.8a4.2 4.2 0 00-.1 3.2A4.6 4.6 0 004 10.2c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg>
     </a>
   </div>

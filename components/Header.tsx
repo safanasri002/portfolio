@@ -1,0 +1,16 @@
+export default function Header() {
+  return (
+    <header>
+      <div className="logo">
+        <span className="logo-dot" /> Safa Nasri
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+  );
+}
