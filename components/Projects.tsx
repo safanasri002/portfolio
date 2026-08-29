@@ -14,7 +14,7 @@ const projects: Project[] = [
     desc: "Fraud detection using Random Forest (~97% accuracy). Spring Boot, Angular, Flask, PostgreSQL.",
     gradient: "p1",
     repo: "#",
-    demo: "https://drive.google.com/drive/folders/1okhhL-j0Yy72WGjZFVfKIK6oLQfdYtO0?usp=sharing",
+    demo: "https://drive.google.com/file/d/1bllB9urEgZE-cQ8uLF4EghuAB1ZOkQpf/view?usp=sharing",
     icon: <path d="M3 21h18M4 21V10M20 21V10M2 10l10-6 10 6M6 21v-6M10 21v-6M14 21v-6M18 21v-6" />,
   },
   {
