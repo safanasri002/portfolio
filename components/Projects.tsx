@@ -14,7 +14,7 @@ const projects: Project[] = [
     desc: "Fraud detection using Random Forest (~97% accuracy). Spring Boot, Angular, Flask, PostgreSQL.",
     gradient: "p1",
     repo: "#",
-    demo: "#",
+    demo: "https://drive.google.com/drive/folders/1okhhL-j0Yy72WGjZFVfKIK6oLQfdYtO0?usp=sharing",
     icon: <path d="M3 21h18M4 21V10M20 21V10M2 10l10-6 10 6M6 21v-6M10 21v-6M14 21v-6M18 21v-6" />,
   },
   {
@@ -102,7 +102,13 @@ export default function Projects() {
             <p className="desc">{project.desc}</p>
             <div className="project-links">
               <a href={project.repo}>Repo</a>
-              <a href={project.demo}>Live demo</a>
+              <a
+                href={project.demo}
+                target={project.demo.startsWith("http") ? "_blank" : undefined}
+                rel={project.demo.startsWith("http") ? "noopener noreferrer" : undefined}
+              >
+                Live demo
+              </a>
             </div>
           </div>
         ))}

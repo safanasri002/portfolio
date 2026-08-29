@@ -2,7 +2,7 @@ export default function Socials() {
   return (
     <div className="socials">
       <a
-        href="https://mail.google.com/mail/?view=cm&fs=1&to=safanasri002@gmail.com"
+        href="https://mail.google.com/mail/?view=cm&fs=1&to=safanasri2003@gmail.com"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Email"
