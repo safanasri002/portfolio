@@ -1,16 +1,22 @@
 import type { Metadata } from "next";
-import { Baloo_2, Poppins } from "next/font/google";
+import { Plus_Jakarta_Sans, Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 
-const baloo2 = Baloo_2({
+const jakarta = Plus_Jakarta_Sans({
   variable: "--font-display",
   weight: ["500", "600", "700", "800"],
   subsets: ["latin"],
 });
 
-const poppins = Poppins({
+const inter = Inter({
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
+  subsets: ["latin"],
+});
+
+const firaCode = Fira_Code({
+  variable: "--font-mono",
+  weight: ["400", "500", "600"],
   subsets: ["latin"],
 });
 
@@ -30,7 +36,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${baloo2.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${jakarta.variable} ${inter.variable} ${firaCode.variable}`}>
       <body>{children}</body>
     </html>
   );
