@@ -294,7 +294,17 @@ h1 .accent{
   border-color:var(--border-strong);
   box-shadow:0 20px 40px -20px rgba(124,92,255,0.35);
 }
-.project-top{display:flex;align-items:center;gap:14px;}
+.project-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+.status-badge{
+  margin-left:auto;
+  font-family:var(--font-mono), monospace;
+  font-size:0.72rem;font-weight:600;letter-spacing:0.02em;
+  color:var(--success);
+  background:rgba(52,211,153,0.12);
+  border:1px solid rgba(52,211,153,0.3);
+  padding:4px 10px;border-radius:999px;
+  white-space:nowrap;
+}
 .project-icon{
   width:44px;height:44px;border-radius:12px;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;

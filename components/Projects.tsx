@@ -5,6 +5,7 @@ type Project = {
   demo: string;
   tags: string[];
   icon: React.ReactNode;
+  inProgress?: boolean;
 };
 
 // TODO: fill in real repo / demo URLs when ready — that's the only thing left here.
@@ -14,6 +15,7 @@ const projects: Project[] = [
     desc: "Multi-agent decision-support system for cardio-acoustic diagnosis, combining Decision Tree, SVM, CNN, ResNet, Transformer, and a QLoRA-tuned LLM. LangGraph + RAG on Qdrant, served via FastAPI, tracked with MLflow.",
     repo: "#",
     demo: "#",
+    inProgress: true,
     tags: ["Python", "LangGraph", "RAG", "Qdrant", "FastAPI", "Docker"],
     icon: (
       <>
@@ -27,6 +29,7 @@ const projects: Project[] = [
     desc: "Personal finance assistant with a RAG pipeline (sentence-transformers + Llama 3.1) for conversational guidance and automatic transaction categorization. FastAPI, PostgreSQL, Docker.",
     repo: "#",
     demo: "#",
+    inProgress: true,
     tags: ["Python", "Llama 3.1", "RAG", "FastAPI", "PostgreSQL"],
     icon: (
       <>
@@ -46,8 +49,8 @@ const projects: Project[] = [
   {
     title: "Pharmacy Management Desktop App",
     desc: "MVC-structured desktop application for managing medications, customers, and purchase transactions, backed by a normalized MySQL database. Java, JavaFX, MySQL.",
-    repo: "#",
-    demo: "#",
+    repo: "https://github.com/safanasri002/Pharmacy-Management-Desktop-Application",
+    demo: "https://drive.google.com/drive/u/0/folders/1gv7Vvm_AKBUnRjXxttYNbmdbB5YDN4gh",
     tags: ["Java", "JavaFX", "MySQL"],
     icon: (
       <>
@@ -76,6 +79,7 @@ export default function Projects() {
                 </svg>
               </div>
               <h3>{project.title}</h3>
+              {project.inProgress && <span className="status-badge">En cours</span>}
             </div>
             <p className="desc">{project.desc}</p>
             <div className="project-tags">
@@ -84,7 +88,13 @@ export default function Projects() {
               ))}
             </div>
             <div className="project-links">
-              <a href={project.repo}>Repo</a>
+              <a
+                href={project.repo}
+                target={project.repo.startsWith("http") ? "_blank" : undefined}
+                rel={project.repo.startsWith("http") ? "noopener noreferrer" : undefined}
+              >
+                Repo
+              </a>
               <a
                 href={project.demo}
                 target={project.demo.startsWith("http") ? "_blank" : undefined}
